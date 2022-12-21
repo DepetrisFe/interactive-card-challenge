@@ -1,8 +1,11 @@
 import React from "react";
-import "./styles.css";
+import { useStyles } from "./styles";
+import { Grid } from "@mui/material";
 
 const MainPage = () => {
-  return <div className="main">hola</div>;
+  const classes = useStyles();
+
+  return <Grid className={classes.root}>hola</Grid>;
 };
 
 export default MainPage;
