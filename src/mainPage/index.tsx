@@ -1,7 +1,8 @@
 import { useStyles } from "./styles";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import BgCardFront from "../assets/bg-card-front.png";
 import BgCardBack from "../assets/bg-card-back.png";
+import CardLogo from "../assets/card-logo.svg";
 
 const MainPage = () => {
   const classes = useStyles();
@@ -16,6 +17,12 @@ const MainPage = () => {
               alt="card front background"
               className={classes.cardFront}
             />
+            <img src={CardLogo} alt="card logo" className={classes.cardLogo} />
+            <Box className={classes.cardNumberContainer}>
+              <Typography fontSize={28} letterSpacing={4}>
+                0000 0000 0000 0000
+              </Typography>
+            </Box>
           </Box>
           <Box className={classes.cardBackContainer}>
             <img

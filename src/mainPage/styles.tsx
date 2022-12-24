@@ -46,6 +46,18 @@ export const useStyles = makeStyles((theme: Theme) => {
     },
     cardFront: {},
     cardBack: {},
+    cardLogo: {
+      position: "absolute",
+      top: "25px",
+      left: "30px",
+    },
+    cardNumberContainer: {
+      display: "flex",
+      justifyContent: "center",
+      position: "absolute",
+      width: "100%",
+      bottom: "70px",
+    },
     formSection: {},
   };
 });
