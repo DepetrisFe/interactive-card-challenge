@@ -58,6 +58,15 @@ export const useStyles = makeStyles((theme: Theme) => {
       width: "100%",
       bottom: "70px",
     },
-    formSection: {},
+    formSection: {
+      display: "flex",
+      justifyContent: "center",
+    },
+    formContainer: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      width: "60%",
+    },
   };
 });

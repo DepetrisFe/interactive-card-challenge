@@ -1,11 +1,16 @@
 import { useStyles } from "./styles";
-import { Box, Grid, Typography } from "@mui/material";
 import BgCardFront from "../assets/bg-card-front.png";
 import BgCardBack from "../assets/bg-card-back.png";
 import CardLogo from "../assets/card-logo.svg";
+import { Box, Grid, TextField, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 const MainPage = () => {
   const classes = useStyles();
+
+  const handleSubmit = () => {
+    window.alert("haciendo submit");
+  };
 
   return (
     <Grid container className={classes.root}>
@@ -33,7 +38,33 @@ const MainPage = () => {
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={6} className={classes.formSection}></Grid>
+      <Grid item xs={6} className={classes.formSection}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          noValidate
+          className={classes.formContainer}
+        >
+          <TextField
+            name="cardName"
+            label={"cardholder name".toUpperCase()}
+            autoComplete="off"
+          />
+          <TextField
+            name="cardNumber"
+            label={"card number".toUpperCase()}
+            autoComplete="off"
+          />
+          <LoadingButton
+            type="submit"
+            fullWidth
+            disableElevation
+            variant="contained"
+          >
+            Confirm
+          </LoadingButton>
+        </Box>
+      </Grid>
     </Grid>
   );
 };
