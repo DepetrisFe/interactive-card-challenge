@@ -64,9 +64,15 @@ export const useStyles = makeStyles((theme: Theme) => {
     },
     formContainer: {
       display: "flex",
+      gap: "2rem",
       flexDirection: "column",
       justifyContent: "center",
       width: "60%",
+    },
+    cardRow: {
+      display: "flex",
+      flexWrap: "nowrap",
+      gap: "1rem",
     },
   };
 });

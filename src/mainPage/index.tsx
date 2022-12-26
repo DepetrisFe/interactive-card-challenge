@@ -1,3 +1,4 @@
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { useStyles } from "./styles";
 import BgCardFront from "../assets/bg-card-front.png";
 import BgCardBack from "../assets/bg-card-back.png";
@@ -7,9 +8,26 @@ import { LoadingButton } from "@mui/lab";
 
 const MainPage = () => {
   const classes = useStyles();
+  const [card, setCard] = useState({
+    name: "",
+    number: "",
+    expMonth: "",
+    expYear: "",
+    cvc: "",
+  });
 
-  const handleSubmit = () => {
-    window.alert("haciendo submit");
+  const handleChange = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setCard({
+      ...card,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (event: SyntheticEvent) => {
+    event.preventDefault();
+    console.log("card", card);
   };
 
   return (
@@ -18,47 +36,71 @@ const MainPage = () => {
         <Box className={classes.cardContainer}>
           <Box className={classes.cardFrontContainer}>
             <img
-              src={BgCardFront}
               alt="card front background"
               className={classes.cardFront}
+              src={BgCardFront}
             />
             <img src={CardLogo} alt="card logo" className={classes.cardLogo} />
             <Box className={classes.cardNumberContainer}>
               <Typography fontSize={28} letterSpacing={4}>
-                0000 0000 0000 0000
+                {card.number}
               </Typography>
             </Box>
           </Box>
           <Box className={classes.cardBackContainer}>
             <img
-              src={BgCardBack}
               alt="card back background"
               className={classes.cardBack}
+              src={BgCardBack}
             />
           </Box>
         </Box>
       </Grid>
       <Grid item xs={6} className={classes.formSection}>
         <Box
-          component="form"
-          onSubmit={handleSubmit}
-          noValidate
           className={classes.formContainer}
+          component="form"
+          noValidate
+          onSubmit={handleSubmit}
         >
           <TextField
-            name="cardName"
-            label={"cardholder name".toUpperCase()}
             autoComplete="off"
+            label={"cardholder name".toUpperCase()}
+            name="name"
+            onChange={(e) => handleChange(e)}
           />
           <TextField
-            name="cardNumber"
-            label={"card number".toUpperCase()}
             autoComplete="off"
+            label={"card number".toUpperCase()}
+            name="number"
+            onChange={(e) => handleChange(e)}
           />
+          <Box className={classes.cardRow}>
+            <TextField
+              autoComplete="off"
+              name="expMonth"
+              onChange={(e) => handleChange(e)}
+              placeholder="MM"
+            />
+            <TextField
+              autoComplete="off"
+              name="expYear"
+              onChange={(e) => handleChange(e)}
+              placeholder="YY"
+            />
+            <TextField
+              autoComplete="off"
+              fullWidth
+              name="cvc"
+              onChange={(e) => handleChange(e)}
+              placeholder="e.g. 123"
+            />
+          </Box>
           <LoadingButton
-            type="submit"
-            fullWidth
             disableElevation
+            fullWidth
+            size="large"
+            type="submit"
             variant="contained"
           >
             Confirm
