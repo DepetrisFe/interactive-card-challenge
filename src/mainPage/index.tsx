@@ -46,6 +46,14 @@ const MainPage = () => {
                 {card.number}
               </Typography>
             </Box>
+            <Box className={classes.cardDataContainer}>
+              <Typography letterSpacing={2}>
+                {card.name.toUpperCase()}
+              </Typography>
+              <Typography letterSpacing={2}>
+                {`${card.expMonth}/${card.expYear}`}
+              </Typography>
+            </Box>
           </Box>
           <Box className={classes.cardBackContainer}>
             <img
