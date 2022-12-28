@@ -53,17 +53,18 @@ export const useStyles = makeStyles((theme: Theme) => {
     },
     cardNumberContainer: {
       display: "flex",
-      justifyContent: "center",
       position: "absolute",
-      width: "100%",
-      bottom: "70px",
+      left: "30px",
+      right: "30px",
+      bottom: "75px",
     },
     cardDataContainer: {
       display: "flex",
       justifyContent: "space-between",
       position: "absolute",
-      width: "100%",
-      bottom: "20px",
+      left: "30px",
+      right: "30px",
+      bottom: "30px",
     },
     formSection: {
       display: "flex",

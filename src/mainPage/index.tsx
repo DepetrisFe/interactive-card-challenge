@@ -16,6 +16,8 @@ const MainPage = () => {
     cvc: "",
   });
 
+  // console.log(card.number.match(/.{1,4}/g).join(" "));
+
   const handleChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -42,7 +44,7 @@ const MainPage = () => {
             />
             <img src={CardLogo} alt="card logo" className={classes.cardLogo} />
             <Box className={classes.cardNumberContainer}>
-              <Typography fontSize={28} letterSpacing={4}>
+              <Typography fontSize={27} letterSpacing={4}>
                 {card.number}
               </Typography>
             </Box>
