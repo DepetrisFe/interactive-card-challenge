@@ -1,4 +1,5 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { formatCardNumber } from "../utils/formatCardNumber";
 import { useStyles } from "./styles";
 import BgCardFront from "../assets/bg-card-front.png";
 import BgCardBack from "../assets/bg-card-back.png";
@@ -10,21 +11,26 @@ const MainPage = () => {
   const classes = useStyles();
   const [card, setCard] = useState({
     name: "",
-    number: "",
-    expMonth: "",
-    expYear: "",
-    cvc: "",
+    cardNumber: "",
+    expMonth: "00",
+    expYear: "00",
+    cvc: "000",
   });
-
-  // console.log(card.number.match(/.{1,4}/g).join(" "));
 
   const handleChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    setCard({
-      ...card,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "cardNumber") {
+      setCard({
+        ...card,
+        [e.target.name]: formatCardNumber(e.target.value),
+      });
+    } else {
+      setCard({
+        ...card,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const handleSubmit = (event: SyntheticEvent) => {
@@ -45,7 +51,7 @@ const MainPage = () => {
             <img src={CardLogo} alt="card logo" className={classes.cardLogo} />
             <Box className={classes.cardNumberContainer}>
               <Typography fontSize={27} letterSpacing={4}>
-                {card.number}
+                {card.cardNumber}
               </Typography>
             </Box>
             <Box className={classes.cardDataContainer}>
@@ -63,6 +69,11 @@ const MainPage = () => {
               className={classes.cardBack}
               src={BgCardBack}
             />
+            <Box className={classes.cardCvcContainer}>
+              <Typography fontSize={17} letterSpacing={2}>
+                {card.cvc}
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Grid>
@@ -82,18 +93,21 @@ const MainPage = () => {
           <TextField
             autoComplete="off"
             label={"card number".toUpperCase()}
-            name="number"
+            name="cardNumber"
             onChange={(e) => handleChange(e)}
+            inputProps={{ maxLength: 19 }}
           />
           <Box className={classes.cardRow}>
             <TextField
               autoComplete="off"
+              inputProps={{ maxLength: 2 }}
               name="expMonth"
               onChange={(e) => handleChange(e)}
               placeholder="MM"
             />
             <TextField
               autoComplete="off"
+              inputProps={{ maxLength: 2 }}
               name="expYear"
               onChange={(e) => handleChange(e)}
               placeholder="YY"
@@ -101,6 +115,7 @@ const MainPage = () => {
             <TextField
               autoComplete="off"
               fullWidth
+              inputProps={{ maxLength: 3 }}
               name="cvc"
               onChange={(e) => handleChange(e)}
               placeholder="e.g. 123"

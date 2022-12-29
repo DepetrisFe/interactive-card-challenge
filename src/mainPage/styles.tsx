@@ -46,6 +46,15 @@ export const useStyles = makeStyles((theme: Theme) => {
     },
     cardFront: {},
     cardBack: {},
+    cardCvcContainer: {
+      display: "flex",
+      justifyContent: "flex-end",
+      position: "absolute",
+      padding: "0px 5px",
+      left: "50px",
+      right: "50px",
+      bottom: "118px",
+    },
     cardLogo: {
       position: "absolute",
       top: "25px",
