@@ -10,7 +10,7 @@ import { LoadingButton } from "@mui/lab";
 const MainPage = () => {
   const classes = useStyles();
   const [card, setCard] = useState({
-    name: "",
+    name: "Jane Appleseed",
     cardNumber: "",
     expMonth: "00",
     expYear: "00",
@@ -94,6 +94,7 @@ const MainPage = () => {
             autoComplete="off"
             label={"card number".toUpperCase()}
             name="cardNumber"
+            value={formatCardNumber(card.cardNumber)}
             onChange={(e) => handleChange(e)}
             inputProps={{ maxLength: 19 }}
           />
