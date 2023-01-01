@@ -84,53 +84,83 @@ const MainPage = () => {
           noValidate
           onSubmit={handleSubmit}
         >
-          <TextField
-            autoComplete="off"
-            label={"cardholder name".toUpperCase()}
-            name="name"
-            onChange={(e) => handleChange(e)}
-          />
-          <TextField
-            autoComplete="off"
-            label={"card number".toUpperCase()}
-            name="cardNumber"
-            value={formatCardNumber(card.cardNumber)}
-            onChange={(e) => handleChange(e)}
-            inputProps={{ maxLength: 19 }}
-          />
-          <Box className={classes.cardRow}>
-            <TextField
-              autoComplete="off"
-              inputProps={{ maxLength: 2 }}
-              name="expMonth"
-              onChange={(e) => handleChange(e)}
-              placeholder="MM"
-            />
-            <TextField
-              autoComplete="off"
-              inputProps={{ maxLength: 2 }}
-              name="expYear"
-              onChange={(e) => handleChange(e)}
-              placeholder="YY"
-            />
+          <Box className={classes.textFieldContainer}>
+            <Typography color="primary" fontSize={13} letterSpacing={1}>
+              CARDHOLDER NAME
+            </Typography>
             <TextField
               autoComplete="off"
               fullWidth
-              inputProps={{ maxLength: 3 }}
-              name="cvc"
+              inputProps={{ maxLength: 25 }}
+              name="name"
               onChange={(e) => handleChange(e)}
-              placeholder="e.g. 123"
+              placeholder="e.g. Jane Appleseed"
             />
           </Box>
-          <LoadingButton
-            disableElevation
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-          >
-            Confirm
-          </LoadingButton>
+          <Box className={classes.textFieldContainer}>
+            <Typography color="primary" fontSize={13} letterSpacing={1}>
+              CARD NUMBER
+            </Typography>
+            <TextField
+              autoComplete="off"
+              fullWidth
+              inputProps={{ maxLength: 19 }}
+              name="cardNumber"
+              onChange={(e) => handleChange(e)}
+              placeholder="e.g. 1234 5678 9123 0000 "
+              value={formatCardNumber(card.cardNumber)}
+            />
+          </Box>
+          <Grid className={classes.cardRow}>
+            <Grid container className={classes.textFieldContainer}>
+              <Typography color="primary" fontSize={13} letterSpacing={1}>
+                EXP. DATE (MM/YY)
+              </Typography>
+              <Box className={classes.expirationContainer}>
+                <TextField
+                  autoComplete="off"
+                  inputProps={{ maxLength: 2 }}
+                  name="expMonth"
+                  onChange={(e) => handleChange(e)}
+                  placeholder="MM"
+                />
+                <TextField
+                  autoComplete="off"
+                  inputProps={{ maxLength: 2 }}
+                  name="expYear"
+                  onChange={(e) => handleChange(e)}
+                  placeholder="YY"
+                />
+              </Box>
+            </Grid>
+            <Grid container className={classes.textFieldContainer}>
+              <Typography color="primary" fontSize={13} letterSpacing={1}>
+                CVC
+              </Typography>
+              <TextField
+                autoComplete="off"
+                fullWidth
+                inputProps={{ maxLength: 3 }}
+                name="cvc"
+                onChange={(e) => handleChange(e)}
+                placeholder="e.g. 123"
+              />
+            </Grid>
+          </Grid>
+          <Box className={classes.btnContainer}>
+            <LoadingButton
+              className={classes.confirmBtn}
+              disableElevation
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+            >
+              <Typography letterSpacing={1} fontSize={18}>
+                Confirm
+              </Typography>
+            </LoadingButton>
+          </Box>
         </Box>
       </Grid>
     </Grid>

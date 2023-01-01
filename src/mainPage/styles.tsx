@@ -81,7 +81,7 @@ export const useStyles = makeStyles((theme: Theme) => {
     },
     formContainer: {
       display: "flex",
-      gap: "2rem",
+      gap: "1.5rem",
       flexDirection: "column",
       justifyContent: "center",
       width: "60%",
@@ -90,6 +90,21 @@ export const useStyles = makeStyles((theme: Theme) => {
       display: "flex",
       flexWrap: "nowrap",
       gap: "1rem",
+    },
+    textFieldContainer: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.3rem",
+    },
+    expirationContainer: {
+      display: "flex",
+      gap: "1rem",
+    },
+    btnContainer: {
+      marginTop: "1rem",
+    },
+    confirmBtn: {
+      height: "55px",
     },
   };
 });
