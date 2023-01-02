@@ -103,8 +103,37 @@ export const useStyles = makeStyles((theme: Theme) => {
     btnContainer: {
       marginTop: "1rem",
     },
-    confirmBtn: {
+    button: {
       height: "55px",
+    },
+    successContainer: {
+      display: "flex",
+      gap: "2.5rem",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "60%",
+    },
+    iconComplete: {
+      width: "100px",
+    },
+    successTextContainer: {
+      display: "flex",
+      gap: "0.5rem",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    buttonContainer: {
+      [theme.breakpoints.down("lg")]: {
+        width: "90%",
+      },
+      [theme.breakpoints.between("lg", "xl")]: {
+        width: "70%",
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "50%",
+      },
     },
   };
 });

@@ -4,11 +4,15 @@ import { useStyles } from "./styles";
 import BgCardFront from "../assets/bg-card-front.png";
 import BgCardBack from "../assets/bg-card-back.png";
 import CardLogo from "../assets/card-logo.svg";
-import { Box, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import IconComplete from "../assets/icon-complete.svg";
 
 const MainPage = () => {
   const classes = useStyles();
+  const regexName = /^[a-zA-Z ]*$/;
+  const [loading, setLoading] = useState<boolean>(false);
+  const [openSuccess, setOpenSuccess] = useState<boolean>(false);
   const [card, setCard] = useState({
     name: "Jane Appleseed",
     cardNumber: "",
@@ -35,7 +39,11 @@ const MainPage = () => {
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log("card", card);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setOpenSuccess(true);
+    }, 2000);
   };
 
   return (
@@ -78,90 +86,124 @@ const MainPage = () => {
         </Box>
       </Grid>
       <Grid item xs={6} className={classes.formSection}>
-        <Box
-          className={classes.formContainer}
-          component="form"
-          noValidate
-          onSubmit={handleSubmit}
-        >
-          <Box className={classes.textFieldContainer}>
-            <Typography color="primary" fontSize={13} letterSpacing={1}>
-              CARDHOLDER NAME
-            </Typography>
-            <TextField
-              autoComplete="off"
-              fullWidth
-              inputProps={{ maxLength: 25 }}
-              name="name"
-              onChange={(e) => handleChange(e)}
-              placeholder="e.g. Jane Appleseed"
-            />
-          </Box>
-          <Box className={classes.textFieldContainer}>
-            <Typography color="primary" fontSize={13} letterSpacing={1}>
-              CARD NUMBER
-            </Typography>
-            <TextField
-              autoComplete="off"
-              fullWidth
-              inputProps={{ maxLength: 19 }}
-              name="cardNumber"
-              onChange={(e) => handleChange(e)}
-              placeholder="e.g. 1234 5678 9123 0000 "
-              value={formatCardNumber(card.cardNumber)}
-            />
-          </Box>
-          <Grid className={classes.cardRow}>
-            <Grid container className={classes.textFieldContainer}>
+        {!openSuccess && (
+          <Box
+            className={classes.formContainer}
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+          >
+            <Box className={classes.textFieldContainer}>
               <Typography color="primary" fontSize={13} letterSpacing={1}>
-                EXP. DATE (MM/YY)
-              </Typography>
-              <Box className={classes.expirationContainer}>
-                <TextField
-                  autoComplete="off"
-                  inputProps={{ maxLength: 2 }}
-                  name="expMonth"
-                  onChange={(e) => handleChange(e)}
-                  placeholder="MM"
-                />
-                <TextField
-                  autoComplete="off"
-                  inputProps={{ maxLength: 2 }}
-                  name="expYear"
-                  onChange={(e) => handleChange(e)}
-                  placeholder="YY"
-                />
-              </Box>
-            </Grid>
-            <Grid container className={classes.textFieldContainer}>
-              <Typography color="primary" fontSize={13} letterSpacing={1}>
-                CVC
+                CARDHOLDER NAME
               </Typography>
               <TextField
                 autoComplete="off"
                 fullWidth
-                inputProps={{ maxLength: 3 }}
-                name="cvc"
+                inputProps={{ maxLength: 25 }}
+                name="name"
+                error={!regexName.test(card.name)}
                 onChange={(e) => handleChange(e)}
-                placeholder="e.g. 123"
+                placeholder="e.g. Jane Appleseed"
               />
-            </Grid>
-          </Grid>
-          <Box className={classes.btnContainer}>
-            <LoadingButton
-              className={classes.confirmBtn}
-              disableElevation
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-            >
-              <Typography letterSpacing={1} fontSize={18}>
-                Confirm
+            </Box>
+            <Box className={classes.textFieldContainer}>
+              <Typography color="primary" fontSize={13} letterSpacing={1}>
+                CARD NUMBER
               </Typography>
-            </LoadingButton>
+              <TextField
+                autoComplete="off"
+                fullWidth
+                inputProps={{ maxLength: 19 }}
+                name="cardNumber"
+                onChange={(e) => handleChange(e)}
+                placeholder="e.g. 1234 5678 9123 0000 "
+                value={formatCardNumber(card.cardNumber)}
+              />
+            </Box>
+            <Grid className={classes.cardRow}>
+              <Grid container className={classes.textFieldContainer}>
+                <Typography color="primary" fontSize={13} letterSpacing={1}>
+                  EXP. DATE (MM/YY)
+                </Typography>
+                <Box className={classes.expirationContainer}>
+                  <TextField
+                    autoComplete="off"
+                    inputProps={{ maxLength: 2 }}
+                    name="expMonth"
+                    onChange={(e) => handleChange(e)}
+                    placeholder="MM"
+                  />
+                  <TextField
+                    autoComplete="off"
+                    inputProps={{ maxLength: 2 }}
+                    name="expYear"
+                    onChange={(e) => handleChange(e)}
+                    placeholder="YY"
+                  />
+                </Box>
+              </Grid>
+              <Grid container className={classes.textFieldContainer}>
+                <Typography color="primary" fontSize={13} letterSpacing={1}>
+                  CVC
+                </Typography>
+                <TextField
+                  autoComplete="off"
+                  fullWidth
+                  inputProps={{ maxLength: 3 }}
+                  name="cvc"
+                  onChange={(e) => handleChange(e)}
+                  placeholder="e.g. 123"
+                />
+              </Grid>
+            </Grid>
+            <Box className={classes.btnContainer}>
+              <LoadingButton
+                className={classes.button}
+                disableElevation
+                fullWidth
+                loading={loading}
+                size="large"
+                type="submit"
+                variant="contained"
+              >
+                <Typography letterSpacing={1} fontSize={18}>
+                  Confirm
+                </Typography>
+              </LoadingButton>
+            </Box>
           </Box>
-        </Box>
+        )}
+        {openSuccess && (
+          <Box className={classes.successContainer}>
+            <img
+              src={IconComplete}
+              alt="Complete Icon"
+              className={classes.iconComplete}
+            />
+            <Box className={classes.successTextContainer}>
+              <Typography fontSize={30} letterSpacing={2} color="primary">
+                THANK YOU!
+              </Typography>
+              <Typography fontSize={18} color="primary">
+                We've added your card details
+              </Typography>
+            </Box>
+            <Box className={classes.buttonContainer}>
+              <Button
+                disableElevation
+                fullWidth
+                onClick={() => setOpenSuccess(!openSuccess)}
+                variant="contained"
+                className={classes.button}
+              >
+                <Typography letterSpacing={1} fontSize={18}>
+                  Continue
+                </Typography>
+              </Button>
+            </Box>
+          </Box>
+        )}
       </Grid>
     </Grid>
   );
