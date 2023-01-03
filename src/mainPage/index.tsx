@@ -11,6 +11,7 @@ import IconComplete from "../assets/icon-complete.svg";
 const MainPage = () => {
   const classes = useStyles();
   const regexName = /^[a-zA-Z ]*$/;
+  const regexNumber = /^(?=.*\d)[\d ]+$/;
   const [loading, setLoading] = useState<boolean>(false);
   const [openSuccess, setOpenSuccess] = useState<boolean>(false);
   const [card, setCard] = useState({
