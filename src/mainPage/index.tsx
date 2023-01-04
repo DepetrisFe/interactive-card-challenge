@@ -10,17 +10,37 @@ import IconComplete from "../assets/icon-complete.svg";
 
 const MainPage = () => {
   const classes = useStyles();
-  const regexName = /^[a-zA-Z ]*$/;
+  const regexName = /^[a-zA-Z ]+$/;
   const regexNumber = /^(?=.*\d)[\d ]+$/;
+  const regexDate = /^[0-9]{2}$/;
+  const regexCvc = /^[0-9]{3}$/;
   const [loading, setLoading] = useState<boolean>(false);
   const [openSuccess, setOpenSuccess] = useState<boolean>(false);
   const [card, setCard] = useState({
-    name: "Jane Appleseed",
+    name: "",
     cardNumber: "",
-    expMonth: "00",
-    expYear: "00",
-    cvc: "000",
+    expMonth: "",
+    expYear: "",
+    cvc: "",
   });
+
+  const [formError, setFormError] = useState({
+    name: false,
+    cardNumber: false,
+    expMonth: false,
+    expYear: false,
+    cvc: false,
+  });
+
+  const handleFormError = () => {
+    setFormError({
+      name: !regexName.test(card.name),
+      cardNumber: !regexNumber.test(card.cardNumber),
+      expMonth: !regexDate.test(card.expMonth),
+      expYear: !regexDate.test(card.expYear),
+      cvc: !regexCvc.test(card.cvc),
+    });
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -40,6 +60,7 @@ const MainPage = () => {
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
+    handleFormError();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -60,15 +81,17 @@ const MainPage = () => {
             <img src={CardLogo} alt="card logo" className={classes.cardLogo} />
             <Box className={classes.cardNumberContainer}>
               <Typography fontSize={27} letterSpacing={4}>
-                {card.cardNumber}
+                {card.cardNumber ? card.cardNumber : "0000 0000 0000 0000"}
               </Typography>
             </Box>
             <Box className={classes.cardDataContainer}>
               <Typography letterSpacing={2}>
-                {card.name.toUpperCase()}
+                {card.name ? card.name.toUpperCase() : "JANE APPLESEED"}
               </Typography>
               <Typography letterSpacing={2}>
-                {`${card.expMonth}/${card.expYear}`}
+                {`${card.expMonth ? card.expMonth : "00"}/${
+                  card.expYear ? card.expYear : "00"
+                }`}
               </Typography>
             </Box>
           </Box>
@@ -80,7 +103,7 @@ const MainPage = () => {
             />
             <Box className={classes.cardCvcContainer}>
               <Typography fontSize={17} letterSpacing={2}>
-                {card.cvc}
+                {card.cvc ? card.cvc : "000"}
               </Typography>
             </Box>
           </Box>
@@ -100,10 +123,10 @@ const MainPage = () => {
               </Typography>
               <TextField
                 autoComplete="off"
+                error={formError.name}
                 fullWidth
                 inputProps={{ maxLength: 25 }}
                 name="name"
-                error={!regexName.test(card.name)}
                 onChange={(e) => handleChange(e)}
                 placeholder="e.g. Jane Appleseed"
               />
@@ -114,6 +137,7 @@ const MainPage = () => {
               </Typography>
               <TextField
                 autoComplete="off"
+                error={formError.cardNumber}
                 fullWidth
                 inputProps={{ maxLength: 19 }}
                 name="cardNumber"
@@ -130,6 +154,7 @@ const MainPage = () => {
                 <Box className={classes.expirationContainer}>
                   <TextField
                     autoComplete="off"
+                    error={formError.expMonth}
                     inputProps={{ maxLength: 2 }}
                     name="expMonth"
                     onChange={(e) => handleChange(e)}
@@ -137,6 +162,7 @@ const MainPage = () => {
                   />
                   <TextField
                     autoComplete="off"
+                    error={formError.expYear}
                     inputProps={{ maxLength: 2 }}
                     name="expYear"
                     onChange={(e) => handleChange(e)}
@@ -150,6 +176,7 @@ const MainPage = () => {
                 </Typography>
                 <TextField
                   autoComplete="off"
+                  error={formError.cvc}
                   fullWidth
                   inputProps={{ maxLength: 3 }}
                   name="cvc"
