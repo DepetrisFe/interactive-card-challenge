@@ -70,7 +70,7 @@ const MainPage = () => {
 
   return (
     <Grid container className={classes.root}>
-      <Grid item xs={6} className={classes.cardSection}>
+      <Grid item xs={12} md={6} className={classes.cardSection}>
         <Box className={classes.cardContainer}>
           <Box className={classes.cardFrontContainer}>
             <img
@@ -109,7 +109,7 @@ const MainPage = () => {
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={6} className={classes.formSection}>
+      <Grid item xs={12} md={6} className={classes.formSection}>
         {!openSuccess && (
           <Box
             className={classes.formContainer}

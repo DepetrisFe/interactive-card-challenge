@@ -1,4 +1,5 @@
 import BgDesktop from "../assets/bg-main-desktop.png";
+import BgMobile from "../assets/bg-main-mobile.png";
 import { makeStyles } from "@mui/styles";
 import { Theme } from "@mui/material";
 
@@ -10,15 +11,24 @@ export const useStyles = makeStyles((theme: Theme) => {
       backgroundImage: `url(${BgDesktop})`,
       backgroundRepeat: "no-repeat",
       backgroundSize: "35% 100%",
+      [theme.breakpoints.down("md")]: {
+        height: "100%",
+        backgroundImage: `url(${BgMobile})`,
+        backgroundSize: "100% 40%",
+      },
     },
     cardSection: {
       display: "flex",
       justifyContent: "flex-end",
       alignItems: "center",
+      [theme.breakpoints.down("md")]: {
+        justifyContent: "center",
+      },
     },
     cardContainer: {
       display: "grid",
       gridRowGap: "30px",
+      border: "1px solid red",
     },
     cardFrontContainer: {
       position: "relative",
@@ -78,6 +88,7 @@ export const useStyles = makeStyles((theme: Theme) => {
     formSection: {
       display: "flex",
       justifyContent: "center",
+      border: "1px solid red",
     },
     formContainer: {
       display: "flex",
@@ -85,6 +96,10 @@ export const useStyles = makeStyles((theme: Theme) => {
       flexDirection: "column",
       justifyContent: "center",
       width: "60%",
+      [theme.breakpoints.down("md")]: {
+        width: "90%",
+        padding: "3rem 0rem",
+      },
     },
     cardRow: {
       display: "flex",
@@ -113,6 +128,10 @@ export const useStyles = makeStyles((theme: Theme) => {
       justifyContent: "center",
       alignItems: "center",
       width: "60%",
+      [theme.breakpoints.down("md")]: {
+        width: "90%",
+        padding: "3rem 0rem",
+      },
     },
     iconComplete: {
       width: "100px",
