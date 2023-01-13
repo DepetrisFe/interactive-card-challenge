@@ -1,8 +1,6 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { formatCardNumber } from "../utils/formatCardNumber";
 import { useStyles } from "./styles";
-import BgCardFront from "../assets/bg-card-front.png";
-import BgCardBack from "../assets/bg-card-back.png";
 import CardLogo from "../assets/card-logo.svg";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
@@ -71,7 +69,43 @@ const MainPage = () => {
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12} md={6} className={classes.cardSection}>
-        <Box className={classes.cardContainer}>
+        <Box className={classes.cardsContainer}>
+          <Box className={classes.cardFront}>
+            <img src={CardLogo} alt="card logo" className={classes.cardLogo} />
+            <Box className={classes.cardNumberContainer}>
+              <Typography
+                fontSize={27}
+                letterSpacing={4}
+                align="center"
+                className={classes.cardNumberText}
+              >
+                {card.cardNumber ? card.cardNumber : "0000 0000 0000 0000"}
+              </Typography>
+            </Box>
+            <Box className={classes.cardDataContainer}>
+              <Typography letterSpacing={2} className={classes.cardDataText}>
+                {card.name ? card.name.toUpperCase() : "JANE APPLESEED"}
+              </Typography>
+              <Typography letterSpacing={2} className={classes.cardDataText}>
+                {`${card.expMonth ? card.expMonth : "00"}/${
+                  card.expYear ? card.expYear : "00"
+                }`}
+              </Typography>
+            </Box>
+          </Box>
+          <Box className={classes.cardBack}>
+            <Box className={classes.cardCvcContainer}>
+              <Typography
+                fontSize={17}
+                letterSpacing={2}
+                className={classes.cvcText}
+              >
+                {card.cvc ? card.cvc : "000"}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        {/* <Box className={classes.cardContainer}>
           <Box className={classes.cardFrontContainer}>
             <img
               alt="card front background"
@@ -107,7 +141,7 @@ const MainPage = () => {
               </Typography>
             </Box>
           </Box>
-        </Box>
+        </Box> */}
       </Grid>
       <Grid item xs={12} md={6} className={classes.formSection}>
         {!openSuccess && (
