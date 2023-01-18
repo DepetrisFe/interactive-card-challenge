@@ -30,16 +30,6 @@ const MainPage = () => {
     cvc: false,
   });
 
-  const handleFormError = () => {
-    setFormError({
-      name: !regexName.test(card.name),
-      cardNumber: !regexNumber.test(card.cardNumber),
-      expMonth: !regexDate.test(card.expMonth),
-      expYear: !regexDate.test(card.expYear),
-      cvc: !regexCvc.test(card.cvc),
-    });
-  };
-
   const handleChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -58,12 +48,37 @@ const MainPage = () => {
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    handleFormError();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setOpenSuccess(true);
-    }, 2000);
+    const errorsInForm = handleFormError();
+    if (!errorsInForm.includes(true)) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setOpenSuccess(true);
+        setCard({
+          name: "",
+          cardNumber: "",
+          expMonth: "",
+          expYear: "",
+          cvc: "",
+        });
+      }, 2000);
+    }
+  };
+
+  const handleFormError = () => {
+    const nameErr = !regexName.test(card.name);
+    const numberErr = !regexNumber.test(card.cardNumber);
+    const monthErr = !regexDate.test(card.expMonth);
+    const yearErr = !regexDate.test(card.expYear);
+    const cvcErr = !regexCvc.test(card.cvc);
+    setFormError({
+      name: nameErr,
+      cardNumber: numberErr,
+      expMonth: monthErr,
+      expYear: yearErr,
+      cvc: cvcErr,
+    });
+    return [nameErr, numberErr, monthErr, yearErr, cvcErr];
   };
 
   return (
@@ -105,43 +120,6 @@ const MainPage = () => {
             </Box>
           </Box>
         </Box>
-        {/* <Box className={classes.cardContainer}>
-          <Box className={classes.cardFrontContainer}>
-            <img
-              alt="card front background"
-              className={classes.cardFront}
-              src={BgCardFront}
-            />
-            <img src={CardLogo} alt="card logo" className={classes.cardLogo} />
-            <Box className={classes.cardNumberContainer}>
-              <Typography fontSize={27} letterSpacing={4}>
-                {card.cardNumber ? card.cardNumber : "0000 0000 0000 0000"}
-              </Typography>
-            </Box>
-            <Box className={classes.cardDataContainer}>
-              <Typography letterSpacing={2}>
-                {card.name ? card.name.toUpperCase() : "JANE APPLESEED"}
-              </Typography>
-              <Typography letterSpacing={2}>
-                {`${card.expMonth ? card.expMonth : "00"}/${
-                  card.expYear ? card.expYear : "00"
-                }`}
-              </Typography>
-            </Box>
-          </Box>
-          <Box className={classes.cardBackContainer}>
-            <img
-              alt="card back background"
-              className={classes.cardBack}
-              src={BgCardBack}
-            />
-            <Box className={classes.cardCvcContainer}>
-              <Typography fontSize={17} letterSpacing={2}>
-                {card.cvc ? card.cvc : "000"}
-              </Typography>
-            </Box>
-          </Box>
-        </Box> */}
       </Grid>
       <Grid item xs={12} md={6} className={classes.formSection}>
         {!openSuccess && (
