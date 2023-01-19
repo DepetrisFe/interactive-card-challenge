@@ -1,7 +1,7 @@
+import BgCardBack from "../assets/bg-card-back.png";
+import BgCardFront from "../assets/bg-card-front.png";
 import BgDesktop from "../assets/bg-main-desktop.png";
 import BgMobile from "../assets/bg-main-mobile.png";
-import BgCardFront from "../assets/bg-card-front.png";
-import BgCardBack from "../assets/bg-card-back.png";
 import { makeStyles } from "@mui/styles";
 import { Theme } from "@mui/material";
 
@@ -72,23 +72,6 @@ export const useStyles = makeStyles((theme: Theme) => {
         top: "25.3vw",
       },
     },
-    cardBack: {
-      position: "absolute",
-      bottom: "0",
-      right: "0",
-      width: "447px",
-      height: "245px",
-      backgroundImage: `url(${BgCardBack})`,
-      backgroundSize: "100% 100%",
-      [theme.breakpoints.down("md")]: {
-        right: "10px",
-        top: "0",
-      },
-      [theme.breakpoints.down(570)]: {
-        width: "79%",
-        height: "62%",
-      },
-    },
     cardLogo: {
       position: "absolute",
       top: "30px",
@@ -137,6 +120,23 @@ export const useStyles = makeStyles((theme: Theme) => {
         fontSize: "3vw !important",
       },
     },
+    cardBack: {
+      position: "absolute",
+      bottom: "0",
+      right: "0",
+      width: "447px",
+      height: "245px",
+      backgroundImage: `url(${BgCardBack})`,
+      backgroundSize: "100% 100%",
+      [theme.breakpoints.down("md")]: {
+        right: "10px",
+        top: "0",
+      },
+      [theme.breakpoints.down(570)]: {
+        width: "79%",
+        height: "62%",
+      },
+    },
     cardCvcContainer: {
       display: "flex",
       justifyContent: "flex-end",
@@ -171,15 +171,15 @@ export const useStyles = makeStyles((theme: Theme) => {
         padding: "3rem 0rem",
       },
     },
-    cardRow: {
-      display: "flex",
-      flexWrap: "nowrap",
-      gap: "1rem",
-    },
     textFieldContainer: {
       display: "flex",
       flexDirection: "column",
       gap: "0.3rem",
+    },
+    cardRow: {
+      display: "flex",
+      flexWrap: "nowrap",
+      gap: "1rem",
     },
     expirationContainer: {
       display: "flex",
@@ -199,7 +199,7 @@ export const useStyles = makeStyles((theme: Theme) => {
       alignItems: "center",
       width: "60%",
       [theme.breakpoints.down("md")]: {
-        width: "90%",
+        width: "100%",
         padding: "3rem 0rem",
       },
     },
@@ -214,6 +214,9 @@ export const useStyles = makeStyles((theme: Theme) => {
       alignItems: "center",
     },
     buttonContainer: {
+      [theme.breakpoints.down("md")]: {
+        maxWidth: "570px",
+      },
       [theme.breakpoints.down("lg")]: {
         width: "90%",
       },

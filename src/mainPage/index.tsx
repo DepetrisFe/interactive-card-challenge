@@ -2,25 +2,26 @@ import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { formatCardNumber } from "../utils/formatCardNumber";
 import { useStyles } from "./styles";
 import CardLogo from "../assets/card-logo.svg";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
 import IconComplete from "../assets/icon-complete.svg";
+import { LoadingButton } from "@mui/lab";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 
 const MainPage = () => {
   const classes = useStyles();
-  const regexName = /^[a-zA-Z ]+$/;
-  const regexNumber = /^(?=.*\d)[\d ]+$/;
-  const regexDate = /^[0-9]{2}$/;
-  const regexCvc = /^[0-9]{3}$/;
-  const [loading, setLoading] = useState<boolean>(false);
-  const [openSuccess, setOpenSuccess] = useState<boolean>(false);
-  const [card, setCard] = useState({
+  const initialState = {
     name: "",
     cardNumber: "",
     expMonth: "",
     expYear: "",
     cvc: "",
-  });
+  };
+  const regexName = /^[a-zA-Z ]+$/;
+  const regexNumber = /^(?=.*\d)[\d ]+$/;
+  const regexDate = /^[0-9]{2}$/;
+  const regexCvc = /^[0-9]{3}$/;
+  const [card, setCard] = useState(initialState);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [openSuccess, setOpenSuccess] = useState<boolean>(false);
 
   const [formError, setFormError] = useState({
     name: false,
@@ -54,13 +55,6 @@ const MainPage = () => {
       setTimeout(() => {
         setLoading(false);
         setOpenSuccess(true);
-        setCard({
-          name: "",
-          cardNumber: "",
-          expMonth: "",
-          expYear: "",
-          cvc: "",
-        });
       }, 2000);
     }
   };
@@ -79,6 +73,11 @@ const MainPage = () => {
       cvc: cvcErr,
     });
     return [nameErr, numberErr, monthErr, yearErr, cvcErr];
+  };
+
+  const handleContinue = () => {
+    setOpenSuccess(!openSuccess);
+    setCard(initialState);
   };
 
   return (
@@ -233,7 +232,7 @@ const MainPage = () => {
               <Button
                 disableElevation
                 fullWidth
-                onClick={() => setOpenSuccess(!openSuccess)}
+                onClick={handleContinue}
                 variant="contained"
                 className={classes.button}
               >
