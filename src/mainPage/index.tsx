@@ -141,6 +141,11 @@ const MainPage = () => {
                 onChange={(e) => handleChange(e)}
                 placeholder="e.g. Jane Appleseed"
               />
+              {formError.name && !card.name.length && (
+                <Typography fontSize={12} className={classes.errorText}>
+                  Wrong format or empty input
+                </Typography>
+              )}
             </Box>
             <Box className={classes.textFieldContainer}>
               <Typography color="primary" fontSize={13} letterSpacing={1}>
@@ -156,6 +161,11 @@ const MainPage = () => {
                 placeholder="e.g. 1234 5678 9123 0000 "
                 value={formatCardNumber(card.cardNumber)}
               />
+              {formError.cardNumber && !card.cardNumber.length && (
+                <Typography fontSize={12} className={classes.errorText}>
+                  Can't be blank
+                </Typography>
+              )}
             </Box>
             <Grid className={classes.cardRow}>
               <Grid container className={classes.textFieldContainer}>
@@ -180,6 +190,11 @@ const MainPage = () => {
                     placeholder="YY"
                   />
                 </Box>
+                {formError.expMonth || formError.expYear ? (
+                  <Typography fontSize={12} className={classes.errorRowText}>
+                    Wrong format
+                  </Typography>
+                ) : null}
               </Grid>
               <Grid container className={classes.textFieldContainer}>
                 <Typography color="primary" fontSize={13} letterSpacing={1}>
@@ -194,6 +209,11 @@ const MainPage = () => {
                   onChange={(e) => handleChange(e)}
                   placeholder="e.g. 123"
                 />
+                {formError.cvc && (
+                  <Typography fontSize={12} className={classes.errorRowText}>
+                    Wrong format
+                  </Typography>
+                )}
               </Grid>
             </Grid>
             <Box className={classes.btnContainer}>

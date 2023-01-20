@@ -172,14 +172,26 @@ export const useStyles = makeStyles((theme: Theme) => {
       },
     },
     textFieldContainer: {
+      position: "relative",
       display: "flex",
       flexDirection: "column",
       gap: "0.3rem",
+    },
+    errorText: {
+      color: "red",
+    },
+    errorRowText: {
+      position: "absolute",
+      color: "red",
+      bottom: "-1.5rem",
     },
     cardRow: {
       display: "flex",
       flexWrap: "nowrap",
       gap: "1rem",
+      [theme.breakpoints.down(320)]: {
+        flexWrap: "wrap",
+      },
     },
     expirationContainer: {
       display: "flex",
